@@ -1,0 +1,5 @@
+# Sdtapi.dll 是 32 位 DLL，宿主进程必须同为 32 位才能加载它。
+# 本 crate 自身的 build / test / example 默认走 i686。
+# 作为依赖被引用时，请在你的项目里同样以 i686-pc-windows-msvc 目标构建。
+[build]
+target = "i686-pc-windows-msvc"

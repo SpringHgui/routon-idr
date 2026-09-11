@@ -1,0 +1,33 @@
+[package]
+name = "routon-idr"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.70"
+license = "MIT"
+description = "安全、零第三方依赖的 Rust 封装：精伦(Routon) iDR 系列身份证 / Mifare IC 卡读卡器 Sdtapi.dll（仅 Windows 32 位）"
+readme = "README.md"
+repository = "https://github.com/SpringHgui/routon-idr"
+homepage = "https://github.com/SpringHgui/routon-idr"
+keywords = ["idcard", "mifare", "routon", "card-reader", "windows"]
+categories = ["hardware-support", "api-bindings", "os::windows-apis"]
+exclude = ["/target/**", "*.bmp"]
+
+# 独立 crate：不属于任何 workspace。
+[workspace]
+
+[lib]
+name = "routon_idr"
+path = "src/lib.rs"
+
+# 零运行时依赖：只用 std + 直接绑定 kernel32。
+[dependencies]
+
+[dev-dependencies]
+
+[[example]]
+name = "read_idcard"
+path = "examples/read_idcard.rs"
+
+[[example]]
+name = "read_ic"
+path = "examples/read_ic.rs"

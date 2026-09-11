@@ -1,0 +1,17 @@
+# 构建产物
+/target/
+
+# 运行期读到的照片等临时文件
+*.bmp
+*.log
+
+# cargo publish 生成的元数据
+Cargo.toml.orig
+.cargo_vcs_info.json
+
+# 编辑器/系统
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store
