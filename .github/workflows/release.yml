@@ -26,5 +26,5 @@ jobs:
       - name: Publish
         # 用环境变量而非 --token 参数（后者会误报 invalid characters）
         env:
-          CARGO_REGISTRY_TOKEN: *** secrets.CARGO_REGISTRY_TOKEN }}
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
         run: cargo publish --allow-dirty
