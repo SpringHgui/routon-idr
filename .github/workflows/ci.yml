@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    name: Build & test (i686)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: rustup show
+
+      # 本 crate 的 .cargo/config.toml 已把默认目标锁为 i686（32 位 DLL 约束）。
+      - name: Add i686 target
+        run: rustup target add i686-pc-windows-msvc
+
+      - name: Build (all targets)
+        run: cargo build --all-targets
+
+      - name: Test
+        # tests/symbol_selfcheck.rs 在没有 Sdtapi.dll 时会自行跳过；logic 测试照常跑。
+        run: cargo test

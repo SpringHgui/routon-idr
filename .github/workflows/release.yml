@@ -1,0 +1,30 @@
+name: Release
+
+# 打形如 v1.2.3 的标签时触发发布（需先在仓库 Settings → Secrets → Actions 配置 CARGO_REGISTRY_TOKEN）
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish to crates.io
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add i686 target
+        run: rustup target add i686-pc-windows-msvc
+
+      - name: Package check (no upload)
+        run: cargo package --no-verify --allow-dirty
+
+      - name: Publish
+        # 用环境变量而非 --token 参数（后者会误报 invalid characters）
+        env:
+          CARGO_REGISTRY_TOKEN: *** secrets.CARGO_REGISTRY_TOKEN }}
+        run: cargo publish --allow-dirty
